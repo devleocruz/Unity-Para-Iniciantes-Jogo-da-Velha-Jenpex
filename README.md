@@ -52,5 +52,5 @@ Principais pastas em `Assets/`:
 
   ### FrontEnd
 <p align="center">
- <img src="https://github.com/devleocruz/Unity-Para-Iniciantes-Jogo-da-Velha-Jenpex-/blob/main/Hierarquia/Hierarquia.png" alt="315px" width="717px"><br/>
+ <img src="https://github.com/devleocruz/Unity-Para-Iniciantes-Jogo-da-Velha-Jenpex-/blob/main/Hierarquia/Hierarquia.png" alt="175px" width="398px"><br/>
 </p>
