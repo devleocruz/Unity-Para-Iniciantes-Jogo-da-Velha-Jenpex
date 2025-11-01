@@ -52,16 +52,23 @@ Principais pastas em `Assets/`:
 
   ### FrontEnd
 <p align="center">
-  
  <img src="https://github.com/devleocruz/Unity-Para-Iniciantes-Jogo-da-Velha-Jenpex-/blob/main/Hierarquia/Hierarquia.png" alt="175px" width="398px"><br/>
 </p>
 
+### Script C#
+## Bibliotecas 
 ```csharp
 using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+```
+- UnityEngine e UnityEngine.UI → acesso ao Unity, GameObjects, componentes de UI (Image, etc).
+- TMPro → TextMesh Pro para escrever textos bonitos na tela.
+- System.Text.RegularExpressions → usado pra separar o nome do botão e descobrir qual célula foi clicada usando Regex.
 
+## Variáveis de estado do jogo
+```csharp
 public class JogoDaVelhaBackEnd : MonoBehaviour
 {
     bool jogador1 = true; // true = X, false = O
@@ -69,7 +76,18 @@ public class JogoDaVelhaBackEnd : MonoBehaviour
     bool estadoJogo = false;
     int turnos = 0;
     int resultado = 0;
+```
+- jogador1: guarda de quem é a vez. true significa jogador X, false jogador O.
+- matrizJogoDaVelha: é o tabuleiro 3x3.
+  - 0 = casa vazia
+  - 1 = X
+  - 2 = O
+- estadoJogo: se true, o jogo acabou (alguém ganhou ou deu empate) e ninguém pode mais jogar.
+- turnos: conta quantas jogadas já foram feitas (usado pra detectar empate quando chega em 9).
+- resultado: 0 = ninguém venceu ainda, 1 = X venceu, 2 = O venceu.
 
+## Referências ligadas pelo Inspector
+  ```csharp
     [SerializeField] TextMeshProUGUI textoVezJogador;
     [SerializeField] GameObject painel;
     [SerializeField] GameObject botaoResetar;
