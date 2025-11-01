@@ -49,3 +49,8 @@ Principais pastas em `Assets/`:
 - `FrontEnd`
 - `EventSystem`
 - `Scripts` → GameObject que contém os componentes de lógica do jogo
+
+  ### FrontEnd
+<p align="center">
+ <img src="https://github.com/devleocruz/Unity-Para-Iniciantes-Jogo-da-Velha-Jenpex-/blob/main/Hierarquia/Hierarquia.png" alt="315px" width="717px"><br/>
+</p>
