@@ -22,7 +22,6 @@ O objetivo é praticar lógica de jogo e interface simples em C#.
 - Bloqueia jogadas depois que alguém vence  
 - Mostra mensagem de "X venceu", "O venceu", "Empate"
 
-
 ## 🗂 Estrutura do Projeto
 
 Principais pastas em `Assets/`:
@@ -50,13 +49,13 @@ Principais pastas em `Assets/`:
 - `EventSystem`
 - `Scripts` → GameObject que contém os componentes de lógica do jogo
 
-  ### FrontEnd
+### FrontEnd
 <p align="center">
  <img src="https://github.com/devleocruz/Unity-Para-Iniciantes-Jogo-da-Velha-Jenpex-/blob/main/Hierarquia/Hierarquia.png" alt="175px" width="398px"><br/>
 </p>
 
-### Script C#
-## Bibliotecas 
+## Script C#
+### Bibliotecas 
 ```csharp
 using System.Text.RegularExpressions;
 using UnityEngine;
@@ -67,7 +66,7 @@ using TMPro;
 - TMPro → TextMesh Pro para escrever textos bonitos na tela.
 - System.Text.RegularExpressions → usado pra separar o nome do botão e descobrir qual célula foi clicada usando Regex.
 
-## Variáveis de estado do jogo
+### Variáveis de estado do jogo
 ```csharp
 public class JogoDaVelhaBackEnd : MonoBehaviour
 {
@@ -86,7 +85,7 @@ public class JogoDaVelhaBackEnd : MonoBehaviour
 - turnos: conta quantas jogadas já foram feitas (usado pra detectar empate quando chega em 9).
 - resultado: 0 = ninguém venceu ainda, 1 = X venceu, 2 = O venceu.
 
-## Referências ligadas pelo Inspector
+### Referências ligadas pelo Inspector
   ```csharp
     [SerializeField] TextMeshProUGUI textoVezJogador;
     [SerializeField] GameObject painel;
@@ -95,8 +94,8 @@ public class JogoDaVelhaBackEnd : MonoBehaviour
     [SerializeField] Sprite imagemX;
     [SerializeField] Sprite imagemO;
   ```
-<br> Esses campos aparecem no Inspector da Unity porque têm [SerializeField]. </br>
-<br> Eles conectam o script com a interface do jogo sem precisar ser public. </br>
+Esses campos aparecem no Inspector da Unity porque têm [SerializeField].
+Eles conectam o script com a interface do jogo sem precisar ser public.
 - textoVezJogador: onde você mostra mensagens tipo "Jogador X venceu!"
 - painel: objeto que contém o grid (os botões do tabuleiro).
 - botaoResetar: botão de reset normal (empate).
@@ -185,7 +184,19 @@ O que acontece aqui:
         }turnos++;
         return 0; // Nenhum vencedor ainda
     }
+```
+Aqui ele checa todas as possibilidades de vitória:
+- 3 em uma linha
+- 3 em uma coluna
+- 3 em diagonal
 
+Se encontrar, retorna 1 (X) ou 2 (O).
+Se não encontrou vencedor, aumenta turnos e retorna 0.
+
+Esse retorno é guardado em resultado.
+
+### Método ReiniciarJogo()
+```csharp
     public void ReiniciarJogo()
     {
         matrizJogoDaVelha = new int[3, 3];
@@ -198,7 +209,16 @@ O que acontece aqui:
             painel.transform.GetChild(i).transform.GetChild(0).GetComponent<Image>().sprite = null;
         }
     }
+```
+Isso limpa tudo para começar outra partida:
+- Zera a matriz.
+- Reseta pra jogador X começar.
+- Destrava o jogo (estadoJogo = false).
+- Zera contador de turnos.
+- Limpa os sprites de todas as células do tabuleiro, colocando null (vazio visualmente).
 
+### Método Resetar()
+```csharp
     void Resetar()
     {
         if (resultado == 0)
@@ -211,3 +231,6 @@ O que acontece aqui:
     }
 }
 ```
+Esse método controla a UI pós-jogo:
+- Se resultado == 0 → ninguém ganhou, foi empate. Mostra o botão de “reset normal”.
+- Se resultado == 1 ou 2 → alguém ganhou. Mostra o botão de “reset vitória” e escreve na tela quem venceu.
