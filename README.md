@@ -62,9 +62,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 ```
-- UnityEngine e UnityEngine.UI → acesso ao Unity, GameObjects, componentes de UI (Image, etc).
-- TMPro → TextMesh Pro para escrever textos bonitos na tela.
-- System.Text.RegularExpressions → usado pra separar o nome do botão e descobrir qual célula foi clicada usando Regex.
+- `UnityEngine` e `UnityEngine.UI` → acesso ao Unity, GameObjects, componentes de UI (Image, etc).
+- `TMPro`→ TextMesh Pro para escrever textos bonitos na tela.
+- `System.Text.RegularExpressions` → usado pra separar o nome do botão e descobrir qual célula foi clicada usando Regex.
 
 ### Variáveis de estado do jogo
 ```csharp
@@ -76,14 +76,14 @@ public class JogoDaVelhaBackEnd : MonoBehaviour
     int turnos = 0;
     int resultado = 0;
 ```
-- jogador1: guarda de quem é a vez. true significa jogador X, false jogador O.
-- matrizJogoDaVelha: é o tabuleiro 3x3.
+- `jogador1`: guarda de quem é a vez. `true` significa jogador X, `false` jogador O.
+- `matrizJogoDaVelha`: é o tabuleiro 3x3.
   - 0 = casa vazia
   - 1 = X
   - 2 = O
-- estadoJogo: se true, o jogo acabou (alguém ganhou ou deu empate) e ninguém pode mais jogar.
-- turnos: conta quantas jogadas já foram feitas (usado pra detectar empate quando chega em 9).
-- resultado: 0 = ninguém venceu ainda, 1 = X venceu, 2 = O venceu.
+- `estadoJogo`: se `true`, o jogo acabou (alguém ganhou ou deu empate) e ninguém pode mais jogar.
+- `turnos`: conta quantas jogadas já foram feitas (usado pra detectar empate quando chega em 9).
+- `resultado`: 0 = ninguém venceu ainda, 1 = X venceu, 2 = O venceu.
 
 ### Referências ligadas pelo Inspector
   ```csharp
@@ -94,15 +94,15 @@ public class JogoDaVelhaBackEnd : MonoBehaviour
     [SerializeField] Sprite imagemX;
     [SerializeField] Sprite imagemO;
   ```
-Esses campos aparecem no Inspector da Unity porque têm [SerializeField].
-Eles conectam o script com a interface do jogo sem precisar ser public.
-- textoVezJogador: onde você mostra mensagens tipo "Jogador X venceu!"
-- painel: objeto que contém o grid (os botões do tabuleiro).
-- botaoResetar: botão de reset normal (empate).
-- botaoResetarVitoria: botão de reset quando tem vencedor (pode ser outro layout).
-- imagemX e imagemO: sprites usados para desenhar X e O na célula clicada.
+Esses campos aparecem no Inspector da Unity porque têm `[SerializeField]`.
+Eles conectam o script com a interface do jogo sem precisar ser `public`.
+- `textoVezJogador`: onde você mostra mensagens tipo "Jogador X venceu!"
+- `painel`: objeto que contém o grid (os botões do tabuleiro).
+- `botaoResetar`: botão de reset normal (empate).
+- `botaoResetarVitoria`: botão de reset quando tem vencedor (pode ser outro layout).
+- `imagemX` e `imagemO`: sprites usados para desenhar X e O na célula clicada.
   
-### Método Selecao(GameObject botaoClicado)
+### Método `Selecao(GameObject botaoClicado)`
 ```csharp
     public void Selecao(GameObject botaoClicado)
 
@@ -146,17 +146,17 @@ Eles conectam o script com a interface do jogo sem precisar ser public.
 O que acontece aqui:
 
 - Esse método é chamado quando o jogador clica num botão da grade.
-- Se estadoJogo já é true, significa que o jogo acabou → ele sai e ignora clique.
+- Se `estadoJogo` já é `true`, significa que o jogo acabou → ele sai e ignora clique.
 - Ele checa se o botão já tem imagem X ou O. Se já tiver, não deixa sobrescrever.
-- Ele lê o nome do botão (ex: "1,2") e separa com Regex.Split pra descobrir qual posição do tabuleiro foi clicada.
-- Se for a vez do jogador1 → marca 1 na matriz e coloca sprite do X.
-- Se for o outro → marca 2 e coloca sprite do O.
-- Faz um print() do tabuleiro no console (debug).
-- Chama VerificarVencedor() pra ver se alguém ganhou.
-- Se alguém ganhou (resultado != 0) ou se já deu 9 turnos (turnos == 9), o jogo trava (estadoJogo = true) e chama Resetar() pra mostrar as opções de reiniciar.
-- Repara no detalhe: você alterna jogador1 = !jogador1; na mão, trocando a vez.
+- Ele lê o nome do botão (ex: `"1,2"`) e separa com `Regex.Split` pra descobrir qual posição do tabuleiro foi clicada.
+- Se for a vez do jogador1 → marca `1` na matriz e coloca sprite do X.
+- Se for o outro → marca `2` e coloca sprite do O.
+- Faz um `print()`` do tabuleiro no console (debug).
+- Chama `VerificarVencedor()` pra ver se alguém ganhou.
+- Se alguém ganhou (`resultado != 0`) ou se já deu 9 turnos (`turnos == 9`), o jogo trava (`estadoJogo = true`) e chama `Resetar()` pra mostrar as opções de reiniciar.
+- Repara no detalhe: você alterna `jogador1 = !jogador1;` na mão, trocando a vez.
   
-### Método VerificarVencedor()
+### Método `VerificarVencedor()`
 ```csharp
 
     int VerificarVencedor()
@@ -190,12 +190,12 @@ Aqui ele checa todas as possibilidades de vitória:
 - 3 em uma coluna
 - 3 em diagonal
 
-Se encontrar, retorna 1 (X) ou 2 (O).
-Se não encontrou vencedor, aumenta turnos e retorna 0.
+Se encontrar, retorna `1` (X) ou `2` (O).
+Se não encontrou vencedor, aumenta `turnos` e retorna `0`.
 
-Esse retorno é guardado em resultado.
+Esse retorno é guardado em `resultado`.
 
-### Método ReiniciarJogo()
+### Método `ReiniciarJogo()`
 ```csharp
     public void ReiniciarJogo()
     {
@@ -213,11 +213,11 @@ Esse retorno é guardado em resultado.
 Isso limpa tudo para começar outra partida:
 - Zera a matriz.
 - Reseta pra jogador X começar.
-- Destrava o jogo (estadoJogo = false).
+- Destrava o jogo (`estadoJogo = false`).
 - Zera contador de turnos.
-- Limpa os sprites de todas as células do tabuleiro, colocando null (vazio visualmente).
+- Limpa os sprites de todas as células do tabuleiro, colocando `null` (vazio visualmente).
 
-### Método Resetar()
+### Método `Resetar()`
 ```csharp
     void Resetar()
     {
@@ -232,5 +232,5 @@ Isso limpa tudo para começar outra partida:
 }
 ```
 Esse método controla a UI pós-jogo:
-- Se resultado == 0 → ninguém ganhou, foi empate. Mostra o botão de “reset normal”.
-- Se resultado == 1 ou 2 → alguém ganhou. Mostra o botão de “reset vitória” e escreve na tela quem venceu.
+- Se `resultado == 0` → ninguém ganhou, foi empate. Mostra o botão de “reset normal”.
+- Se `resultado == 1` ou `2` → alguém ganhou. Mostra o botão de “reset vitória” e escreve na tela quem venceu.
